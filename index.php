@@ -11,15 +11,13 @@ $interface = new \api\PMSInterface($clientKey, $apiUrl);
 $dateNow = date('Y-m-d H:i:s');
 
 try {
-    $patientId = $interface->read_patient($patientId);
+    $patients = $interface->read_patient($patientId);
 
-    echo "Patient ID: $patientId\n";
-
-    if (empty($patientId)) {
-        throw new \Exception('Empty patient id');
+    if ($patients['status'] != 200) {
+        throw new \Exception('Error while loading patients');
     }
 
-    $result = $interface->create_appointment($patientId, $dateNow);
+    $result = $interface->create_appointment($patients['patients'][0]['patientID'], $dateNow);
 
     echo '<pre>';
     var_dump($result);

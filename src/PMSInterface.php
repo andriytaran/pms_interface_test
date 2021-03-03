@@ -68,7 +68,7 @@ class PMSInterface
 
             $result = json_decode($response->getBody()->getContents(), true);
 
-            return (int) $result;
+            return $result;
         } catch (\GuzzleHttp\Exception\BadResponseException $ex) {
             $response = $ex->getResponse();
             $jsonBody = (string) $response->getBody();
